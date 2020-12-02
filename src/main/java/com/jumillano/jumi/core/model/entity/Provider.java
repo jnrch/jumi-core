@@ -1,4 +1,6 @@
-package com.jumillano.jumi.core.model;
+package com.jumillano.jumi.core.model.entity;
+
+import com.jumillano.jumi.core.model.entity.Location;
 
 public class Provider {
 
