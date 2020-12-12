@@ -1,5 +1,8 @@
 package com.jumillano.jumi.core.model.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "employees")
 public class Employee {
 
     private Long fileNumber;
@@ -8,21 +11,21 @@ public class Employee {
     private String birthDay;
     private String address;
     private Integer phone;
-    private Integer cellphone;
+    private Integer cellPhone;
     private Location location;
     private Boolean enabled;
 
     public Employee() {
     }
 
-    public Employee(Long fileNumber, String name, String lastName, String birthDay, String address, Integer phone, Integer cellphone, Location location, Boolean enabled) {
+    public Employee(Long fileNumber, String name, String lastName, String birthDay, String address, Integer phone, Integer cellPhone, Location location, Boolean enabled) {
         this.fileNumber = fileNumber;
         this.name = name;
         this.lastName = lastName;
         this.birthDay = birthDay;
         this.address = address;
         this.phone = phone;
-        this.cellphone = cellphone;
+        this.cellPhone = cellPhone;
         this.location = location;
         this.enabled = enabled;
     }
@@ -75,12 +78,12 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Integer getCellphone() {
-        return cellphone;
+    public Integer getCellPhone() {
+        return cellPhone;
     }
 
-    public void setCellphone(Integer cellphone) {
-        this.cellphone = cellphone;
+    public void setCellPhone(Integer cellPhone) {
+        this.cellPhone = cellPhone;
     }
 
     public Location getLocation() {

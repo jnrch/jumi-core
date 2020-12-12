@@ -1,5 +1,8 @@
 package com.jumillano.jumi.core.model.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "locations")
 public class Location {
 
     private Long id;

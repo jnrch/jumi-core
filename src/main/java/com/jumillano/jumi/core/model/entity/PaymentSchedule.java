@@ -1,10 +1,19 @@
 package com.jumillano.jumi.core.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
+@Document(collection = "paymentsSchedule")
 public class PaymentSchedule {
 
-    private Long id;
+    @Id
+    private ObjectId id;
     private Provider provider;
     private Double amount;
     private Date paymentDate;
@@ -14,7 +23,7 @@ public class PaymentSchedule {
     public PaymentSchedule() {
     }
 
-    public PaymentSchedule(Long id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument) {
+    public PaymentSchedule(ObjectId id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
@@ -23,11 +32,11 @@ public class PaymentSchedule {
         this.attachedDocument = attachedDocument;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

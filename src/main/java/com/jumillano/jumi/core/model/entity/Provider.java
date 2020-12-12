@@ -1,7 +1,8 @@
 package com.jumillano.jumi.core.model.entity;
 
-import com.jumillano.jumi.core.model.entity.Location;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "providers")
 public class Provider {
 
     private Long id;
@@ -10,20 +11,20 @@ public class Provider {
     private String address;
     private String email;
     private Integer phone;
-    private Integer cellphone;
+    private Integer cellPhone;
     private Location location;
 
     public Provider() {
     }
 
-    public Provider(Long id, String name, String document, String address, String email, Integer phone, Integer cellphone, Location location) {
+    public Provider(Long id, String name, String document, String address, String email, Integer phone, Integer cellPhone, Location location) {
         this.id = id;
         this.name = name;
         this.document = document;
         this.address = address;
         this.email = email;
         this.phone = phone;
-        this.cellphone = cellphone;
+        this.cellPhone = cellPhone;
         this.location = location;
     }
 
@@ -75,12 +76,12 @@ public class Provider {
         this.phone = phone;
     }
 
-    public Integer getCellphone() {
-        return cellphone;
+    public Integer getCellPhone() {
+        return cellPhone;
     }
 
-    public void setCellphone(Integer cellphone) {
-        this.cellphone = cellphone;
+    public void setCellPhone(Integer cellPhone) {
+        this.cellPhone = cellPhone;
     }
 
     public Location getLocation() {
