@@ -1,10 +1,15 @@
 package com.jumillano.jumi.core.model.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
 
 @Document(collection = "employees")
 public class Employee {
 
+    @Id
+    private ObjectId id;
     private Long fileNumber;
     private String name;
     private String lastName;
@@ -18,7 +23,8 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long fileNumber, String name, String lastName, String birthDay, String address, Integer phone, Integer cellPhone, Location location, Boolean enabled) {
+    public Employee(ObjectId id, Long fileNumber, String name, String lastName, String birthDay, String address, Integer phone, Integer cellPhone, Location location, Boolean enabled) {
+        this.id = id;
         this.fileNumber = fileNumber;
         this.name = name;
         this.lastName = lastName;
@@ -28,6 +34,14 @@ public class Employee {
         this.cellPhone = cellPhone;
         this.location = location;
         this.enabled = enabled;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public Long getFileNumber() {

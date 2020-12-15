@@ -2,16 +2,12 @@ package com.jumillano.jumi.core.service;
 
 import com.jumillano.jumi.core.model.dao.IProviderRepository;
 import com.jumillano.jumi.core.model.entity.Provider;
-import javassist.NotFoundException;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
