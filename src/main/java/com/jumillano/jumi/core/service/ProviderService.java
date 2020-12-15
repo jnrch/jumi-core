@@ -1,6 +1,6 @@
 package com.jumillano.jumi.core.service;
 
-import com.jumillano.jumi.core.model.dao.IProviderRepository;
+import com.jumillano.jumi.core.model.dao.IProviderDao;
 import com.jumillano.jumi.core.model.entity.Provider;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -14,22 +14,22 @@ import java.util.Optional;
 public class ProviderService {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
-    private IProviderRepository iProviderRepository;
+    private IProviderDao providerDao;
 
-    public ProviderService(IProviderRepository iProviderRepository) {
-        this.iProviderRepository = iProviderRepository;
+    public ProviderService(IProviderDao iProviderDao) {
+        this.providerDao = iProviderDao;
     }
 
     public List<Provider> findAll() {
-        return iProviderRepository.findAll();
+        return providerDao.findAll();
     }
 
     public Optional<Provider> findById(String id) {
-        return iProviderRepository.findById(id);
+        return providerDao.findById(id);
     }
 
     public Provider saveProvider(Provider provider) {
-        return iProviderRepository.save(provider);
+        return providerDao.save(provider);
     }
 
     public Provider updateProvider(String id, Provider provider) {
@@ -37,13 +37,13 @@ public class ProviderService {
         Optional<Provider> currentProvider = findById(id);
 
         provider.setId(new ObjectId(String.valueOf(currentProvider.get().getId())));
-        iProviderRepository.save(provider);
+        providerDao.save(provider);
 
         return provider;
     }
 
     public void deleteProvider(String id) {
-        iProviderRepository.deleteById(id);
+        providerDao.deleteById(id);
     }
 
 }

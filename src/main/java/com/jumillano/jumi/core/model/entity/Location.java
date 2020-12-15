@@ -1,26 +1,30 @@
 package com.jumillano.jumi.core.model.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
 
 @Document(collection = "locations")
 public class Location {
 
-    private Long id;
+    @Id
+    private ObjectId id;
     private String description;
 
     public Location() {
     }
 
-    public Location(Long id, String description) {
+    public Location(ObjectId id, String description) {
         this.id = id;
         this.description = description;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

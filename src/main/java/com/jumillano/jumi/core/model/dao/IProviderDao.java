@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface IProviderRepository extends MongoRepository<Provider, Long> {
+public interface IProviderDao extends MongoRepository<Provider, Long> {
     Optional<Provider> findById(String id);
 
     void deleteById(String id);
