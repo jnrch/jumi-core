@@ -2,11 +2,16 @@ package com.jumillano.jumi.core.service;
 
 import com.jumillano.jumi.core.model.dao.IProviderRepository;
 import com.jumillano.jumi.core.model.entity.Provider;
+import javassist.NotFoundException;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -23,7 +28,7 @@ public class ProviderService {
         return iProviderRepository.findAll();
     }
 
-    public Optional<Provider> findById(Long id) {
+    public Optional<Provider> findById(String id) {
         return iProviderRepository.findById(id);
     }
 
@@ -31,11 +36,17 @@ public class ProviderService {
         return iProviderRepository.save(provider);
     }
 
-    public Provider updateProvider(Long id, Provider provider) {
-        return iProviderRepository.save(provider);
+    public Provider updateProvider(String id, Provider provider) {
+
+        Optional<Provider> currentProvider = findById(id);
+
+        provider.setId(new ObjectId(String.valueOf(currentProvider.get().getId())));
+        iProviderRepository.save(provider);
+
+        return provider;
     }
 
-    public void deleteProvider(Long id) {
+    public void deleteProvider(String id) {
         iProviderRepository.deleteById(id);
     }
 

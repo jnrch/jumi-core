@@ -2,6 +2,8 @@ package com.jumillano.jumi.core.controller;
 
 import com.jumillano.jumi.core.model.entity.Provider;
 import com.jumillano.jumi.core.service.ProviderService;
+import javassist.NotFoundException;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +27,7 @@ public class ProviderController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Provider> findById(@PathVariable Long id) {
+    public Optional<Provider> findById(@PathVariable String id) {
         return providerService.findById(id);
     }
 
@@ -36,12 +38,12 @@ public class ProviderController {
     }
 
     @PutMapping("/{id}")
-    public Provider updateProvider(@PathVariable Long id, @RequestBody Provider provider) {
+    public Provider updateProvider(@PathVariable String id, @RequestBody Provider provider) {
         return providerService.updateProvider(id, provider);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProvider(@PathVariable Long id) {
+    public void deleteProvider(@PathVariable String id) {
         providerService.deleteProvider(id);
     }
 }
