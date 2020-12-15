@@ -2,8 +2,6 @@ package com.jumillano.jumi.core.controller;
 
 import com.jumillano.jumi.core.model.entity.Provider;
 import com.jumillano.jumi.core.service.ProviderService;
-import javassist.NotFoundException;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
