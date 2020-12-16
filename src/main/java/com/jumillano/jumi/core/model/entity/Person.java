@@ -7,13 +7,13 @@ public class Person {
     protected String name;
     protected String lastName;
     protected String document;
-    protected Date dayOfBirth;
+    protected Date birthDay;
 
-    public Person(String name, String lastName, String document, Date dayOfBirth) {
+    public Person(String name, String lastName, String document, Date birthDay) {
         this.name = name;
         this.lastName = lastName;
         this.document = document;
-        this.dayOfBirth = dayOfBirth;
+        this.birthDay = birthDay;
     }
 
     public String getName() {
@@ -40,11 +40,11 @@ public class Person {
         this.document = document;
     }
 
-    public Date getDayOfBirth() {
-        return dayOfBirth;
+    public Date getBirthDay() {
+        return birthDay;
     }
 
-    public void setDayOfBirth(Date dayOfBirth) {
-        this.dayOfBirth = dayOfBirth;
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
     }
 }
