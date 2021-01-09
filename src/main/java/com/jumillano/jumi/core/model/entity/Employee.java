@@ -4,16 +4,14 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.Date;
 
 @Document(collection = "employees")
-public class Employee {
+public class Employee extends Person{
 
     @Id
     private ObjectId id;
     private Long fileNumber;
-    private String name;
-    private String lastName;
-    private String birthDay;
     private String address;
     private Integer phone;
     private Integer cellPhone;
@@ -23,12 +21,10 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(ObjectId id, Long fileNumber, String name, String lastName, String birthDay, String address, Integer phone, Integer cellPhone, Location location, Boolean enabled) {
+    public Employee(ObjectId id, Long fileNumber, String name, String lastName, String document, Date birthDay, String address, Integer phone, Integer cellPhone, Location location, Boolean enabled) {
+        super(name,lastName,document,birthDay);
         this.id = id;
         this.fileNumber = fileNumber;
-        this.name = name;
-        this.lastName = lastName;
-        this.birthDay = birthDay;
         this.address = address;
         this.phone = phone;
         this.cellPhone = cellPhone;
@@ -50,30 +46,6 @@ public class Employee {
 
     public void setFileNumber(Long fileNumber) {
         this.fileNumber = fileNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(String birthDay) {
-        this.birthDay = birthDay;
     }
 
     public String getAddress() {

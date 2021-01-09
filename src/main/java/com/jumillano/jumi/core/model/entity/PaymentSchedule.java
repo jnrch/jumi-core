@@ -1,11 +1,8 @@
 package com.jumillano.jumi.core.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -19,17 +16,19 @@ public class PaymentSchedule {
     private Date paymentDate;
     private String observations;
     private String attachedDocument;
+    private Status status;
 
     public PaymentSchedule() {
     }
 
-    public PaymentSchedule(ObjectId id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument) {
+    public PaymentSchedule(ObjectId id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument, Status status) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
         this.paymentDate = paymentDate;
         this.observations = observations;
         this.attachedDocument = attachedDocument;
+        this.status = status;
     }
 
     public ObjectId getId() {
@@ -78,5 +77,13 @@ public class PaymentSchedule {
 
     public void setAttachedDocument(String attachedDocument) {
         this.attachedDocument = attachedDocument;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

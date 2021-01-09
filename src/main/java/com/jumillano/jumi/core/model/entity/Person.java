@@ -4,10 +4,18 @@ import java.util.Date;
 
 public class Person {
 
-    protected String name;
-    protected String lastName;
-    protected String document;
-    protected Date birthDay;
+    private String name;
+    private String lastName;
+    private String document;
+    private Date birthDay;
+
+    public Person() {
+    }
+
+    public Person(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
 
     public Person(String name, String lastName, String document, Date birthDay) {
         this.name = name;

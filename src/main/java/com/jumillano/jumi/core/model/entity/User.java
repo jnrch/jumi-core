@@ -5,14 +5,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Document(collection = "users")
-public class User {
+public class User extends Person{
 
     private Long id;
     private String userName;
     private String password;
     private Boolean enabled;
-    private String name;
-    private String lastName;
     private String email;
     private List<Role> roles;
 
@@ -20,12 +18,11 @@ public class User {
     }
 
     public User(Long id, String userName, String password, Boolean enabled, String name, String lastName, String email, List<Role> roles) {
+        super(name, lastName);
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
-        this.name = name;
-        this.lastName = lastName;
         this.email = email;
         this.roles = roles;
     }
@@ -60,22 +57,6 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {
