@@ -1,5 +1,6 @@
 package com.jumillano.jumi.core.model.entity;
 
+import com.jumillano.jumi.core.model.enums.Status;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 

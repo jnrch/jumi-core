@@ -1,46 +1,57 @@
 package com.jumillano.jumi.core.model.entity;
 
+import com.sun.istack.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Document(collection = "users")
 public class User extends Person{
 
-    private Long id;
-    private String userName;
+    @Id
+    private String id;
+
+    @NotNull
+    private String username;
     private String password;
     private Boolean enabled;
     private String email;
-    private List<Role> roles;
 
-    public User() {
+    @DBRef
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
-    public User(Long id, String userName, String password, Boolean enabled, String name, String lastName, String email, List<Role> roles) {
+    public User(String id, String username, String password, Boolean enabled, String name, String lastName, String email) {
         super(name, lastName);
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.email = email;
-        this.roles = roles;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -67,11 +78,11 @@ public class User extends Person{
         this.email = email;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

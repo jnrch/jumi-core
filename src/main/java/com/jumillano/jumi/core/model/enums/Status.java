@@ -1,4 +1,4 @@
-package com.jumillano.jumi.core.model.entity;
+package com.jumillano.jumi.core.model.enums;
 
 public enum Status {
     ANNULLED,

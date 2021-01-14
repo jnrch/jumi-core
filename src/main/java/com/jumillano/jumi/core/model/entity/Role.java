@@ -1,34 +1,36 @@
 package com.jumillano.jumi.core.model.entity;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "roles")
 public class Role {
 
-    private Long id;
-    private String description;
+    @Id
+    private String id;
+    private com.jumillano.jumi.core.model.enums.Role name;
 
     public Role() {
     }
 
-    public Role(Long id, String description) {
+    public Role(String id, com.jumillano.jumi.core.model.enums.Role name) {
         this.id = id;
-        this.description = description;
+        this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public com.jumillano.jumi.core.model.enums.Role getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(com.jumillano.jumi.core.model.enums.Role name) {
+        this.name = name;
     }
 }
