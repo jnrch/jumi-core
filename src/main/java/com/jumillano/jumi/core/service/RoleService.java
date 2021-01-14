@@ -1,8 +1,8 @@
 package com.jumillano.jumi.core.service;
 
 import com.jumillano.jumi.core.model.dao.IRoleDao;
-import com.jumillano.jumi.core.model.dao.IUserDao;
 import com.jumillano.jumi.core.model.entity.Role;
+import com.jumillano.jumi.core.model.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class RoleService {
         this.roleDao = roleDao;
     }
 
-    public Optional<Role> findByName(com.jumillano.jumi.core.model.enums.Role role) {
+    public Optional<Role> findByName(RoleType role) {
         return roleDao.findByName(role);
     }
 }

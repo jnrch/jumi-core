@@ -1,13 +1,12 @@
 package com.jumillano.jumi.core.controller;
 
-import com.jumillano.jumi.core.model.dao.IRoleDao;
-import com.jumillano.jumi.core.model.dao.IUserDao;
 import com.jumillano.jumi.core.model.dto.request.LoginRequest;
 import com.jumillano.jumi.core.model.dto.request.SignUpRequest;
 import com.jumillano.jumi.core.model.dto.response.JwtResponse;
 import com.jumillano.jumi.core.model.dto.response.MessageResponse;
 import com.jumillano.jumi.core.model.entity.Role;
 import com.jumillano.jumi.core.model.entity.User;
+import com.jumillano.jumi.core.model.enums.RoleType;
 import com.jumillano.jumi.core.security.jwt.JwtUtils;
 import com.jumillano.jumi.core.service.RoleService;
 import com.jumillano.jumi.core.service.UserDetailsImpl;
@@ -90,20 +89,20 @@ public class AuthController {
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleService.findByName(com.jumillano.jumi.core.model.enums.Role.ROLE_USER)
+            Role userRole = roleService.findByName(RoleType.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = roleService.findByName(com.jumillano.jumi.core.model.enums.Role.ROLE_ADMIN)
+                        Role adminRole = roleService.findByName(RoleType.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
                     default:
-                        Role userRole = roleService.findByName(com.jumillano.jumi.core.model.enums.Role.ROLE_USER)
+                        Role userRole = roleService.findByName(RoleType.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
                 }

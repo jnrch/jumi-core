@@ -1,5 +1,6 @@
 package com.jumillano.jumi.core.model.entity;
 
+import com.jumillano.jumi.core.model.enums.RoleType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,12 +9,12 @@ public class Role {
 
     @Id
     private String id;
-    private com.jumillano.jumi.core.model.enums.Role name;
+    private RoleType name;
 
     public Role() {
     }
 
-    public Role(String id, com.jumillano.jumi.core.model.enums.Role name) {
+    public Role(String id, RoleType name) {
         this.id = id;
         this.name = name;
     }
@@ -26,11 +27,11 @@ public class Role {
         this.id = id;
     }
 
-    public com.jumillano.jumi.core.model.enums.Role getName() {
+    public RoleType getName() {
         return name;
     }
 
-    public void setName(com.jumillano.jumi.core.model.enums.Role name) {
+    public void setName(RoleType name) {
         this.name = name;
     }
 }

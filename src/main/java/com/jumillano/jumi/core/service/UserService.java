@@ -13,7 +13,6 @@ import java.util.Optional;
 public class UserService {
 
     IUserDao userDao;
-    IRoleDao roleDao;
 
     @Autowired
     public UserService(IUserDao userDao, IRoleDao roleDao) {
