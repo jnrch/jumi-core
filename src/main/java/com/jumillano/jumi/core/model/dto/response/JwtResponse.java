@@ -27,12 +27,12 @@ public class JwtResponse {
         this.token = accessToken;
     }
 
-    public String getType() {
+    public String getTokenType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTokenType(String tokenType) {
+        this.type = tokenType;
     }
 
     public String getId() {

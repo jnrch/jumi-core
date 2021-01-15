@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Document(collection = "users")
-public class User extends Person{
+public class User {
 
     @Id
     private String id;
@@ -23,20 +23,23 @@ public class User extends Person{
     @DBRef
     private Set<Role> roles = new HashSet<>();
 
+    public User() {
+    }
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public User(String id, String username, String password, Boolean enabled, String name, String lastName, String email) {
+    /*public User(String id, String username, String password, Boolean enabled, String name, String lastName, String email) {
         super(name, lastName);
         this.id = id;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.email = email;
-    }
+    }*/
 
     public String getId() {
         return id;
