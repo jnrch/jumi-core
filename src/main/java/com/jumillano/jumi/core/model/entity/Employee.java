@@ -1,42 +1,32 @@
 package com.jumillano.jumi.core.model.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.Id;
 import java.util.Date;
 
 @Document(collection = "employees")
-public class Employee extends Person{
+public class Employee {
 
     @Id
-    private ObjectId id;
+    private String id;
     private Long fileNumber;
+    private String name;
+    private String lastName;
+    private String document;
+    private Date birthDay;
     private String address;
     private Integer phone;
     private Integer cellPhone;
     private Location location;
     private Boolean enabled;
 
-    public Employee() {
-    }
-
-    public Employee(ObjectId id, Long fileNumber, String name, String lastName, String document, Date birthDay, String address, Integer phone, Integer cellPhone, Location location, Boolean enabled) {
-        super(name,lastName,document,birthDay);
-        this.id = id;
-        this.fileNumber = fileNumber;
-        this.address = address;
-        this.phone = phone;
-        this.cellPhone = cellPhone;
-        this.location = location;
-        this.enabled = enabled;
-    }
-
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,6 +36,38 @@ public class Employee extends Person{
 
     public void setFileNumber(Long fileNumber) {
         this.fileNumber = fileNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
     }
 
     public String getAddress() {

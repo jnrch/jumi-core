@@ -1,7 +1,6 @@
 package com.jumillano.jumi.core.model.entity;
 
 import com.jumillano.jumi.core.model.enums.Status;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -11,7 +10,7 @@ import java.util.Date;
 public class PaymentSchedule {
 
     @Id
-    private ObjectId id;
+    private String id;
     private Provider provider;
     private Double amount;
     private Date paymentDate;
@@ -22,7 +21,7 @@ public class PaymentSchedule {
     public PaymentSchedule() {
     }
 
-    public PaymentSchedule(ObjectId id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument, Status status) {
+    public PaymentSchedule(String id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument, Status status) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
@@ -32,11 +31,11 @@ public class PaymentSchedule {
         this.status = status;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

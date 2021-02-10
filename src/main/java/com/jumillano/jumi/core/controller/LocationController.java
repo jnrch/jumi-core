@@ -3,12 +3,14 @@ package com.jumillano.jumi.core.controller;
 import com.jumillano.jumi.core.model.entity.Location;
 import com.jumillano.jumi.core.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/locations")
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/api/locations")
 @RestController
 public class LocationController {
 
@@ -20,6 +22,7 @@ public class LocationController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('LEADER') or hasRole('ADMIN')")
     public List<Location> findAll() {
         return locationService.findAll();
     }

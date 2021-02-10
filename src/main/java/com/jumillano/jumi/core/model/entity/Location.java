@@ -1,6 +1,5 @@
 package com.jumillano.jumi.core.model.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -9,22 +8,22 @@ import javax.persistence.Id;
 public class Location {
 
     @Id
-    private ObjectId id;
+    private String id;
     private String description;
 
     public Location() {
     }
 
-    public Location(ObjectId id, String description) {
+    public Location(String id, String description) {
         this.id = id;
         this.description = description;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

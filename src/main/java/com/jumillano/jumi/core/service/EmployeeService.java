@@ -2,9 +2,6 @@ package com.jumillano.jumi.core.service;
 
 import com.jumillano.jumi.core.model.dao.IEmployeeDao;
 import com.jumillano.jumi.core.model.entity.Employee;
-import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +11,22 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
     private IEmployeeDao employeeDao;
 
     @Autowired
-    public EmployeeService(IEmployeeDao iEmployeeDao) {
-        this.employeeDao = iEmployeeDao;
+    public EmployeeService(IEmployeeDao empleadoDao) {
+        this.employeeDao = empleadoDao;
     }
 
-    public List<Employee> findAll() {
-        return employeeDao.findAll();
+    public List<Employee> findAll(String name) {
+        List<Employee> employees;
+
+        if (name == null) {
+            employees = employeeDao.findAll();
+        } else {
+            employees = employeeDao.findByNameContaining(name);
+        }
+        return employees;
     }
 
     public Optional<Employee> findById(String id) {
@@ -35,10 +38,9 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(String id, Employee employee) {
-
         Optional<Employee> currentEmployee = findById(id);
 
-        employee.setId(new ObjectId(String.valueOf(currentEmployee.get().getId())));
+        employee.setId(currentEmployee.get().getId());
         employeeDao.save(employee);
 
         return employee;
@@ -47,4 +49,5 @@ public class EmployeeService {
     public void deleteEmployee(String id) {
         employeeDao.deleteById(id);
     }
+
 }

@@ -1,6 +1,5 @@
 package com.jumillano.jumi.core.model.entity;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -9,7 +8,7 @@ import javax.persistence.Id;
 public class Provider {
 
     @Id
-    private ObjectId id;
+    private String id;
     private String name;
     private String document;
     private String address;
@@ -21,7 +20,7 @@ public class Provider {
     public Provider() {
     }
 
-    public Provider(ObjectId id, String name, String document, String address, String email, Integer phone, Integer cellPhone, Location location) {
+    public Provider(String id, String name, String document, String address, String email, Integer phone, Integer cellPhone, Location location) {
         this.id = id;
         this.name = name;
         this.document = document;
@@ -32,11 +31,11 @@ public class Provider {
         this.location = location;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

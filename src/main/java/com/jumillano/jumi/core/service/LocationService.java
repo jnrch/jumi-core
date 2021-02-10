@@ -37,7 +37,7 @@ public class LocationService {
     public Location updateLocation(String id, Location location) {
         Optional<Location> currentLocation = locationDao.findById(id);
 
-        location.setId(new ObjectId(String.valueOf(currentLocation.get().getId())));
+        location.setId(currentLocation.get().getId());
 
         locationDao.save(location);
 
