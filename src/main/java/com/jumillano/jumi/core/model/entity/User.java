@@ -19,6 +19,7 @@ public class User {
     private String password;
     private Boolean enabled;
     private String email;
+    private String name;
 
     @DBRef
     private Set<Role> roles = new HashSet<>();
@@ -26,20 +27,12 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String name) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.name = name;
     }
-
-    /*public User(String id, String username, String password, Boolean enabled, String name, String lastName, String email) {
-        super(name, lastName);
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.email = email;
-    }*/
 
     public String getId() {
         return id;
@@ -79,6 +72,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<Role> getRoles() {

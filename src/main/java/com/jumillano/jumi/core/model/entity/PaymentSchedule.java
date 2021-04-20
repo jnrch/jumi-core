@@ -14,19 +14,19 @@ public class PaymentSchedule {
     private Provider provider;
     private Double amount;
     private Date paymentDate;
-    private String observations;
+    private String observation;
     private String attachedDocument;
     private Status status;
 
     public PaymentSchedule() {
     }
 
-    public PaymentSchedule(String id, Provider provider, Double amount, Date paymentDate, String observations, String attachedDocument, Status status) {
+    public PaymentSchedule(String id, Provider provider, Double amount, Date paymentDate, String observation, String attachedDocument, Status status) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
         this.paymentDate = paymentDate;
-        this.observations = observations;
+        this.observation = observation;
         this.attachedDocument = attachedDocument;
         this.status = status;
     }
@@ -63,12 +63,12 @@ public class PaymentSchedule {
         this.paymentDate = paymentDate;
     }
 
-    public String getObservations() {
-        return observations;
+    public String getObservation() {
+        return observation;
     }
 
-    public void setObservations(String observations) {
-        this.observations = observations;
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public String getAttachedDocument() {
