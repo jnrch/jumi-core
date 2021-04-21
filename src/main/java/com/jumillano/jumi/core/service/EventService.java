@@ -47,12 +47,10 @@ public class EventService {
         String fileName;
         ArrayList<String> filesName = new ArrayList<>();
 
-        User user = new User();
-        user.setId(userId);
-
+        User user = new User(userId);
         Event event = new Event();
-        event.setUser(user);
 
+        event.setUser(user);
         event.setProvider(provider);
         event.setAmount(amount);
         event.setStatus(status);
