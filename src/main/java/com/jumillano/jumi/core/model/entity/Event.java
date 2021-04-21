@@ -1,33 +1,40 @@
 package com.jumillano.jumi.core.model.entity;
 
 import com.jumillano.jumi.core.model.enums.Status;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
-@Document(collection = "paymentsSchedule")
-public class PaymentSchedule {
+@Document(collection = "events")
+public class Event {
 
     @Id
     private String id;
-    private Provider provider;
+    private String provider;
     private Double amount;
-    private Date paymentDate;
+    private Date start;
+    private Date end;
     private String observation;
-    private String attachedDocument;
+    private List<String> file;
     private Status status;
 
-    public PaymentSchedule() {
+    @DBRef
+    private User user;
+
+    public Event() {
     }
 
-    public PaymentSchedule(String id, Provider provider, Double amount, Date paymentDate, String observation, String attachedDocument, Status status) {
+    public Event(String id, String provider, Double amount, Date start, Date end, String observation, List<String> file, Status status) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
-        this.paymentDate = paymentDate;
+        this.start = start;
+        this.end = end;
         this.observation = observation;
-        this.attachedDocument = attachedDocument;
+        this.file = file;
         this.status = status;
     }
 
@@ -39,11 +46,11 @@ public class PaymentSchedule {
         this.id = id;
     }
 
-    public Provider getProvider() {
+    public String getProvider() {
         return provider;
     }
 
-    public void setProvider(Provider provider) {
+    public void setProvider(String provider) {
         this.provider = provider;
     }
 
@@ -55,12 +62,20 @@ public class PaymentSchedule {
         this.amount = amount;
     }
 
-    public Date getPaymentDate() {
-        return paymentDate;
+    public Date getStart() {
+        return start;
     }
 
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
     }
 
     public String getObservation() {
@@ -71,12 +86,12 @@ public class PaymentSchedule {
         this.observation = observation;
     }
 
-    public String getAttachedDocument() {
-        return attachedDocument;
+    public List<String> getFile() {
+        return file;
     }
 
-    public void setAttachedDocument(String attachedDocument) {
-        this.attachedDocument = attachedDocument;
+    public void setFile(List<String> file) {
+        this.file = file;
     }
 
     public Status getStatus() {
@@ -85,5 +100,13 @@ public class PaymentSchedule {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
