@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+    private HashMap<String, String> refreshTokens = new HashMap<>();
 
     AuthenticationManager authenticationManager;
     UserService userService;
@@ -44,6 +47,29 @@ public class AuthController {
         this.roleService = roleService;
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
+    }
+
+    @GetMapping("/renew")
+    public ResponseEntity<?> renewToken(@RequestHeader(value = "x-token") String token,
+                                        @RequestHeader(value = "email") String email) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, token));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(new JwtResponse(
+                jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
+                roles,
+                true));
     }
 
     @PostMapping("/signin")

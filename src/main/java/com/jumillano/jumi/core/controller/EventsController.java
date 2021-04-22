@@ -1,6 +1,7 @@
 package com.jumillano.jumi.core.controller;
 
 import com.jumillano.jumi.core.model.entity.Event;
+import com.jumillano.jumi.core.model.entity.EventResponse;
 import com.jumillano.jumi.core.model.enums.Status;
 import com.jumillano.jumi.core.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class EventsController {
     }
 
     @GetMapping
-    public List<Event> findAll(@RequestParam(required = false) String observation) {
-        return eventService.findAll(observation);
+    public List<Event> findAll() {
+        return eventService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -36,13 +37,14 @@ public class EventsController {
     }
 
     @PostMapping
-    public ResponseEntity<Event> saveEvent(@RequestParam("file") MultipartFile[] file,
-                                           @RequestParam("provider") String provider,
-                                           @RequestParam("amount") Double amount,
-                                           @RequestParam("status") Status status,
-                                           @RequestParam("observation") String observation,
-                                           @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date start,
-                                           @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date end) {
+    public ResponseEntity<EventResponse> saveEvent(@RequestParam("file") MultipartFile[] file,
+                                                   @RequestParam("provider") String provider,
+                                                   @RequestParam("amount") Double amount,
+                                                   @RequestParam("status") Status status,
+                                                   @RequestParam("observation") String observation,
+                                                   @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date start,
+                                                   @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date end) {
+
         return eventService.saveEvent(file, provider, amount, status, observation, start, end);
     }
 
