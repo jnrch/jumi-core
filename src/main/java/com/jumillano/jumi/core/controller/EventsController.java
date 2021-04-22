@@ -51,8 +51,15 @@ public class EventsController {
     }
 
     @PutMapping("/{id}")
-    public Event updateEvent(@PathVariable String id, @RequestBody Event event) {
-        return eventService.updateEvent(id, event);
+    public ResponseEntity<EventResponse> updateEvent(@PathVariable String id, @RequestParam("file") MultipartFile[] file,
+                             @RequestParam("provider") String provider,
+                             @RequestParam("amount") Double amount,
+                             @RequestParam("status") Status status,
+                             @RequestParam("observation") String observation,
+                             @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date start,
+                             @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date end,
+                             @RequestParam(value = "payment_method", required = false) PaymentMethod paymentMethod) {
+        return eventService.updateEvent(id, file, provider, amount, status, observation, start, end, paymentMethod);
     }
 
     @DeleteMapping("/{id}")

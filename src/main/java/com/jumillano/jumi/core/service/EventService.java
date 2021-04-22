@@ -81,13 +81,39 @@ public class EventService {
         return new ResponseEntity<>(eventResponse, HttpStatus.CREATED);
     }
 
-    public Event updateEvent(String id, Event event) {
+    public ResponseEntity<EventResponse> updateEvent(String id, MultipartFile[] files, String provider, Double amount, Status status, String observation, Date start, Date end, PaymentMethod paymentMethod) {
         Optional<Event> currentEvent = eventDao.findById(id);
+        String fileName;
+        ArrayList<String> filesName = new ArrayList<>();
+        Event event = new Event();
 
         event.setId(currentEvent.get().getId());
+        event.setProvider(provider);
+        event.setAmount(amount);
+        event.setStatus(status);
+        event.setObservation(observation);
+        event.setStart(start);
+        event.setEnd(end);
+        event.setPaymentMethod(paymentMethod);
+        event.setUser(currentEvent.get().getUser());
+        try {
+            for (MultipartFile file: files) {
+                fileName = uploadFileService.copy(file);
+                filesName.add(fileName);
+            }
+        } catch (IOException e) {
+            logger.error("Could not upload file: " + files, e);
+            throw new RuntimeException(e);
+        }
+        event.setFile(filesName);
+
+        EventResponse eventResponse = new EventResponse();
+        eventResponse.setEvent(event);
+        eventResponse.setOk(true);
+
         eventDao.save(event);
 
-        return event;
+        return new ResponseEntity<>(eventResponse, HttpStatus.ACCEPTED);
     }
 
     public void deleteEvent(String id) {
