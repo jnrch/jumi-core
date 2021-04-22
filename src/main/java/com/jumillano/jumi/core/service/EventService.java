@@ -4,6 +4,7 @@ import com.jumillano.jumi.core.model.dao.IEventDao;
 import com.jumillano.jumi.core.model.entity.Event;
 import com.jumillano.jumi.core.model.entity.EventResponse;
 import com.jumillano.jumi.core.model.entity.User;
+import com.jumillano.jumi.core.model.enums.PaymentMethod;
 import com.jumillano.jumi.core.model.enums.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class EventService {
        return eventDao.findById(id);
     }
 
-    public ResponseEntity<EventResponse> saveEvent(MultipartFile[] files, String provider, Double amount, Status status, String observation, Date start, Date end) {
+    public ResponseEntity<EventResponse> saveEvent(MultipartFile[] files, String provider, Double amount, Status status, String observation, Date start, Date end, PaymentMethod paymentMethod) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
@@ -58,6 +59,7 @@ public class EventService {
         event.setObservation(observation);
         event.setStart(start);
         event.setEnd(end);
+        event.setPaymentMethod(paymentMethod);
 
         try {
             for (MultipartFile file: files) {

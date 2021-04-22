@@ -2,6 +2,7 @@ package com.jumillano.jumi.core.controller;
 
 import com.jumillano.jumi.core.model.entity.Event;
 import com.jumillano.jumi.core.model.entity.EventResponse;
+import com.jumillano.jumi.core.model.enums.PaymentMethod;
 import com.jumillano.jumi.core.model.enums.Status;
 import com.jumillano.jumi.core.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,10 @@ public class EventsController {
                                                    @RequestParam("status") Status status,
                                                    @RequestParam("observation") String observation,
                                                    @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date start,
-                                                   @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date end) {
+                                                   @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'") Date end,
+                                                   @RequestParam("payment_method") PaymentMethod paymentMethod) {
 
-        return eventService.saveEvent(file, provider, amount, status, observation, start, end);
+        return eventService.saveEvent(file, provider, amount, status, observation, start, end, paymentMethod);
     }
 
     @PutMapping("/{id}")

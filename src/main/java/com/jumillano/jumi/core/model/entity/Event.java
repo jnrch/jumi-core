@@ -1,5 +1,6 @@
 package com.jumillano.jumi.core.model.entity;
 
+import com.jumillano.jumi.core.model.enums.PaymentMethod;
 import com.jumillano.jumi.core.model.enums.Status;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,6 +21,7 @@ public class Event {
     private String observation;
     private List<String> file;
     private Status status;
+    private PaymentMethod paymentMethod;
 
     @DBRef
     private User user;
@@ -27,7 +29,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String id, String provider, Double amount, Date start, Date end, String observation, List<String> file, Status status) {
+    public Event(String id, String provider, Double amount, Date start, Date end, String observation, List<String> file, Status status, PaymentMethod paymentMethod) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
@@ -36,6 +38,7 @@ public class Event {
         this.observation = observation;
         this.file = file;
         this.status = status;
+        this.paymentMethod = paymentMethod;
     }
 
     public String getId() {
@@ -108,5 +111,13 @@ public class Event {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }
