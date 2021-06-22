@@ -4,10 +4,12 @@ import java.util.Date;
 
 public class Person {
 
-    private String name;
-    private String lastName;
-    private String document;
-    private Date birthDay;
+    protected String name;
+    protected String lastName;
+    protected String document;
+    protected Date birthDay;
+    protected String email;
+    protected Integer phone;
 
     public Person() {
     }
@@ -17,11 +19,18 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Person(String name, String lastName, String document, Date birthDay) {
+    public Person(String name, String email, Integer phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Person(String name, String lastName, String document, Date birthDay, String email) {
         this.name = name;
         this.lastName = lastName;
         this.document = document;
         this.birthDay = birthDay;
+        this.email = email;
     }
 
     public String getName() {
@@ -54,5 +63,21 @@ public class Person {
 
     public void setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
     }
 }

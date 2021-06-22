@@ -5,6 +5,7 @@ import com.jumillano.jumi.core.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,21 +35,24 @@ public class ProviderController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('LEADER') or hasRole('ADMIN')")
-    public Provider saveProvider(@RequestBody Provider provider) {
-        providerService.saveProvider(provider);
+    public Provider saveProvider(Provider provider, @RequestParam(value = "file", required = false) MultipartFile[] files) {
+        providerService.saveProvider(provider, files);
         return provider;
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('LEADER') or hasRole('ADMIN')")
-    public Provider updateProvider(@PathVariable String id, @RequestBody Provider provider) {
-        return providerService.updateProvider(id, provider);
+    public Provider updateProvider(Provider provider, @PathVariable String id, @RequestParam(value = "file", required = false) MultipartFile[] files) {
+        return providerService.updateProvider(id, provider, files);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteProvider(@PathVariable String id) {
         providerService.deleteProvider(id);
+    }
+
+    @DeleteMapping("/file/{fileName:.+}/provider/{id}")
+    public Optional<Provider> deleteFile(@PathVariable String fileName, @PathVariable String id) {
+        return providerService.deleteFile(fileName, id);
     }
 }

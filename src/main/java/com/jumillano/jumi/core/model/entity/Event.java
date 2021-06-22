@@ -4,8 +4,11 @@ import com.jumillano.jumi.core.model.enums.PaymentMethod;
 import com.jumillano.jumi.core.model.enums.Status;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,14 +17,20 @@ public class Event {
 
     @Id
     private String id;
-    private String provider;
+
+    @DBRef
+    private Provider provider;
     private Double amount;
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date start;
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date end;
     private String observation;
     private List<String> file;
     private Status status;
     private PaymentMethod paymentMethod;
+    private String dateStart;
+    private boolean isProcessed;
 
     @DBRef
     private User user;
@@ -29,7 +38,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String id, String provider, Double amount, Date start, Date end, String observation, List<String> file, Status status, PaymentMethod paymentMethod) {
+    public Event(String id, Provider provider, Double amount, Date start, Date end, String observation, List<String> file, Status status, PaymentMethod paymentMethod, boolean isProcessed) {
         this.id = id;
         this.provider = provider;
         this.amount = amount;
@@ -39,6 +48,7 @@ public class Event {
         this.file = file;
         this.status = status;
         this.paymentMethod = paymentMethod;
+        this.isProcessed = isProcessed;
     }
 
     public String getId() {
@@ -49,11 +59,11 @@ public class Event {
         this.id = id;
     }
 
-    public String getProvider() {
+    public Provider getProvider() {
         return provider;
     }
 
-    public void setProvider(String provider) {
+    public void setProvider(Provider provider) {
         this.provider = provider;
     }
 
@@ -65,6 +75,7 @@ public class Event {
         this.amount = amount;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date getStart() {
         return start;
     }
@@ -73,6 +84,7 @@ public class Event {
         this.start = start;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     public Date getEnd() {
         return end;
     }
@@ -119,5 +131,27 @@ public class Event {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getDateStart() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            dateStart = sdf.format((new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy",java.util.Locale.ENGLISH)).parse(start.toString()));
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        return dateStart;
+    }
+
+    public void setDateStart(String dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public boolean isProcessed() {
+        return isProcessed;
+    }
+
+    public void setIsProcessed(boolean processed) {
+        this.isProcessed = processed;
     }
 }

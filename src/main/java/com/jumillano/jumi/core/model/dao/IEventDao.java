@@ -8,4 +8,6 @@ import java.util.List;
 public interface IEventDao extends MongoRepository<Event, String> {
 
     List<Event> findByObservationContaining();
+    List<Event> findByUser(String user);
+    List<Event> findByStatus(String status);
 }

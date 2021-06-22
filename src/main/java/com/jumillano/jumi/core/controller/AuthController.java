@@ -21,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,8 +30,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-
-    private HashMap<String, String> refreshTokens = new HashMap<>();
 
     AuthenticationManager authenticationManager;
     UserService userService;
@@ -49,9 +46,15 @@ public class AuthController {
         this.jwtUtils = jwtUtils;
     }
 
+    @GetMapping("/users")
+    public List<User> findAll() {
+        return userService.findAllUser();
+    }
+
     @GetMapping("/renew")
     public ResponseEntity<?> renewToken(@RequestHeader(value = "x-token") String token,
                                         @RequestHeader(value = "email") String email) {
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, token));
 
@@ -148,5 +151,15 @@ public class AuthController {
         userService.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PutMapping("/users/{id}")
+    public User updateUser(@PathVariable String id, @RequestBody SignUpRequest signUpRequest) {
+        return userService.updateUser(id, signUpRequest);
+    }
+
+    @PutMapping("/users/{id}/password")
+    public User updateUserPassword(@PathVariable String id, @RequestBody SignUpRequest signUpRequest) {
+        return userService.updateUserPassword(id, signUpRequest);
     }
 }
