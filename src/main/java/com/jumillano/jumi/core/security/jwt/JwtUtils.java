@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -20,6 +21,14 @@ public class JwtUtils {
 
     @Value("${jumi.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {
+
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
+
+    }
 
     public String generateJwtToken(Authentication authentication) {
 

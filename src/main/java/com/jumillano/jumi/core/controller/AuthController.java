@@ -11,7 +11,10 @@ import com.jumillano.jumi.core.security.jwt.JwtUtils;
 import com.jumillano.jumi.core.service.RoleService;
 import com.jumillano.jumi.core.service.UserDetailsImpl;
 import com.jumillano.jumi.core.service.UserService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,6 +40,9 @@ public class AuthController {
     RoleService roleService;
     PasswordEncoder encoder;
     JwtUtils jwtUtils;
+
+    @Value("${jumi.app.jwtSecret}")
+    private String jwtSecret;
 
     @Autowired
     public AuthController(AuthenticationManager authenticationManager, UserService userService, RoleService roleService, PasswordEncoder encoder, JwtUtils jwtUtils) {
@@ -52,27 +59,28 @@ public class AuthController {
     }
 
     @GetMapping("/renew")
-    public ResponseEntity<?> renewToken(@RequestHeader(value = "x-token") String token,
-                                        @RequestHeader(value = "email") String email) {
+    public ResponseEntity<?> renewToken(@RequestHeader(required = false, value = "x-token") String token) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, token));
+        Claims claims;
+        claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
+        Map<String, Object> expectedMap = claims;
+        String tokenRefresh = jwtUtils.doGenerateRefreshToken(expectedMap, expectedMap.get("sub").toString());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(
-                jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
-                userDetails.getEmail(),
                 roles,
-                true));
+                tokenRefresh
+        ));
     }
 
     @PostMapping("/signin")

@@ -21,6 +21,13 @@ public class JwtResponse {
         this.ok = ok;
     }
 
+    public JwtResponse(String id, String name, List<String> roles, String token) {
+        this.id = id;
+        this.name = name;
+        this.roles = roles;
+        this.token = token;
+    }
+
     public String getToken() {
         return token;
     }
