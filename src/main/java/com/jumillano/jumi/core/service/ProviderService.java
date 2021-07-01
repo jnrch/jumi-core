@@ -2,6 +2,7 @@ package com.jumillano.jumi.core.service;
 
 import com.jumillano.jumi.core.exceptions.ResourceNotFoundException;
 import com.jumillano.jumi.core.model.dao.IProviderDao;
+import com.jumillano.jumi.core.model.entity.AdministrativeContact;
 import com.jumillano.jumi.core.model.entity.Provider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,13 @@ public class ProviderService {
             providers = providerDao.findAll();
         } else {
             providers = providerDao.findByNameContaining(name);
+        }
+
+        for (Provider provider: providers) {
+            if (provider.getAdministrativeContact() == null) {
+                AdministrativeContact administrativeContact = new AdministrativeContact(null,null,null);
+                provider.setAdministrativeContact(administrativeContact);
+            }
         }
         return providers;
     }
