@@ -4,6 +4,7 @@ import com.jumillano.jumi.core.exceptions.ResourceNotFoundException;
 import com.jumillano.jumi.core.model.dao.IProviderDao;
 import com.jumillano.jumi.core.model.entity.AdministrativeContact;
 import com.jumillano.jumi.core.model.entity.Provider;
+import com.jumillano.jumi.core.model.entity.SalesContact;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,10 @@ public class ProviderService {
             if (provider.getAdministrativeContact() == null) {
                 AdministrativeContact administrativeContact = new AdministrativeContact(null,null,null);
                 provider.setAdministrativeContact(administrativeContact);
+            }
+            if (provider.getSalesContact() == null) {
+                SalesContact salesContact = new SalesContact(null,null,null);
+                provider.setSalesContact(salesContact);
             }
         }
         return providers;
